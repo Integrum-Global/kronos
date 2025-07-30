@@ -1,0 +1,80 @@
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#4A90E2', 'secondaryColor':'#7CB342', 'tertiaryColor':'#F57C00'}}}%%
+
+stateDiagram-v2
+    %% Complete Investment Lifecycle - From Goal to Achievement
+    
+    [*] --> GoalSetting: User Defines Goal
+    
+    GoalSetting --> Planning: Goal Parameters Set
+    state GoalSetting {
+        [*] --> SelectGoalType
+        SelectGoalType --> DefineAmount
+        DefineAmount --> SetTimeline
+        SetTimeline --> RiskTolerance
+        RiskTolerance --> [*]
+    }
+    
+    Planning --> Investing: Strategy Approved
+    state Planning {
+        [*] --> AnalyzeGap
+        AnalyzeGap --> GenerateStrategy
+        GenerateStrategy --> RunSimulations
+        RunSimulations --> OptimizeApproach
+        OptimizeApproach --> [*]
+    }
+    
+    Investing --> Monitoring: Investments Active
+    state Investing {
+        [*] --> InitialInvestment
+        InitialInvestment --> RecurringContributions
+        RecurringContributions --> AutomatedRebalancing
+        AutomatedRebalancing --> TaxOptimization
+        TaxOptimization --> RecurringContributions
+    }
+    
+    Monitoring --> Adjusting: Changes Needed
+    state Monitoring {
+        [*] --> TrackProgress
+        TrackProgress --> PerformanceAnalysis
+        PerformanceAnalysis --> RiskMonitoring
+        RiskMonitoring --> AlertGeneration
+        AlertGeneration --> TrackProgress
+    }
+    
+    Adjusting --> Investing: Adjustments Made
+    state Adjusting {
+        [*] --> LifeEventUpdate
+        LifeEventUpdate --> RecalculateNeeds
+        RecalculateNeeds --> ModifyStrategy
+        ModifyStrategy --> ImplementChanges
+        ImplementChanges --> [*]
+    }
+    
+    Monitoring --> Achievement: Goal Reached
+    state Achievement {
+        [*] --> GoalMet
+        GoalMet --> CelebrationNotification
+        CelebrationNotification --> NextGoalSuggestion
+        NextGoalSuggestion --> [*]
+    }
+    
+    Achievement --> GoalSetting: New Goal
+    Achievement --> Distribution: Use Funds
+    
+    state Distribution {
+        [*] --> WithdrawalPlanning
+        WithdrawalPlanning --> TaxOptimizedSelling
+        TaxOptimizedSelling --> FundsTransfer
+        FundsTransfer --> [*]
+    }
+    
+    Distribution --> [*]: Lifecycle Complete
+    
+    %% Notes on states
+    GoalSetting: Define retirement, home purchase,\neducation fund, or custom goal
+    Planning: AI-driven strategy generation\nwith Monte Carlo simulations
+    Investing: Automated execution with\ntax-loss harvesting
+    Monitoring: Real-time tracking with\npredictive analytics
+    Adjusting: Life events trigger\nautomatic strategy updates
+    Achievement: Goal completion with\nnext steps guidance
+    Distribution: Tax-efficient withdrawal\nstrategies

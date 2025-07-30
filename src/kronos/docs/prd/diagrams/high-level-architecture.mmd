@@ -1,0 +1,118 @@
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#4A90E2', 'secondaryColor':'#7CB342', 'tertiaryColor':'#F57C00'}}}%%
+
+graph TB
+    %% High-Level System Architecture
+    
+    subgraph "Client Layer"
+        WebApp[Web Application<br/>React/Next.js]
+        MobileApp[Mobile Apps<br/>iOS/Android]
+        API[Partner API<br/>REST/GraphQL]
+        MCP[MCP Server<br/>Kailash SDK]
+    end
+    
+    subgraph "Edge Layer"
+        CDN[CloudFront CDN]
+        WAF[Web Application<br/>Firewall]
+        LB[Load Balancer<br/>ALB/NLB]
+    end
+    
+    subgraph "API Gateway"
+        Gateway[Kong/Envoy<br/>API Gateway]
+        Auth[Authentication<br/>Service]
+        RateLimit[Rate Limiting<br/>& Throttling]
+    end
+    
+    subgraph "Application Services"
+        UserSvc[User Service]
+        PortfolioSvc[Portfolio Service]
+        TradingSvc[Trading Service]
+        RiskSvc[Risk Service]
+        TaxSvc[Tax Service]
+        NotificationSvc[Notification Service]
+    end
+    
+    subgraph "Core Services"
+        MarketData[Market Data<br/>Service]
+        ExecutionEngine[Execution<br/>Engine]
+        Compliance[Compliance<br/>Service]
+        Settlement[Settlement<br/>Service]
+    end
+    
+    subgraph "Data Layer"
+        UserDB[(User DB<br/>PostgreSQL)]
+        PortfolioDB[(Portfolio DB<br/>PostgreSQL)]
+        TimeSeriesDB[(Time Series<br/>TimescaleDB)]
+        Cache[(Cache<br/>Redis)]
+        DataLake[(Data Lake<br/>S3)]
+    end
+    
+    subgraph "Intelligence Layer"
+        MLPlatform[ML Platform<br/>SageMaker]
+        Analytics[Analytics<br/>Engine]
+        RiskModels[Risk<br/>Models]
+    end
+    
+    subgraph "Infrastructure"
+        MessageQueue[Message Queue<br/>SQS/Kafka]
+        EventStream[Event Stream<br/>Kinesis]
+        Monitoring[Monitoring<br/>Prometheus]
+        Logging[Logging<br/>ELK Stack]
+    end
+    
+    subgraph "External Services"
+        MarketDataProvider[Market Data<br/>Providers]
+        Broker[Broker<br/>Partners]
+        BankingPartner[Banking<br/>Partners]
+        KYCProvider[KYC/AML<br/>Provider]
+    end
+    
+    %% Connections
+    WebApp & MobileApp & API & MCP --> CDN
+    CDN --> WAF
+    WAF --> LB
+    LB --> Gateway
+    
+    Gateway --> Auth
+    Gateway --> RateLimit
+    Gateway --> UserSvc & PortfolioSvc & TradingSvc & RiskSvc & TaxSvc & NotificationSvc
+    
+    UserSvc --> UserDB
+    PortfolioSvc --> PortfolioDB
+    TradingSvc --> ExecutionEngine
+    RiskSvc --> RiskModels
+    
+    PortfolioSvc & TradingSvc & RiskSvc --> MarketData
+    TradingSvc --> Compliance
+    ExecutionEngine --> Settlement
+    
+    MarketData -.-> MarketDataProvider
+    ExecutionEngine -.-> Broker
+    Settlement -.-> BankingPartner
+    UserSvc -.-> KYCProvider
+    
+    All Services --> Cache
+    All Services --> MessageQueue
+    All Services --> EventStream
+    
+    EventStream --> Analytics
+    Analytics --> DataLake
+    DataLake --> MLPlatform
+    MLPlatform --> RiskModels
+    
+    All Services -.-> Monitoring
+    All Services -.-> Logging
+    
+    %% Styling
+    classDef client fill:#4A90E2,stroke:#2E7CD6,color:#fff
+    classDef edge fill:#F57C00,stroke:#E65100,color:#fff
+    classDef service fill:#7CB342,stroke:#558B2F,color:#fff
+    classDef data fill:#5C6BC0,stroke:#3949AB,color:#fff
+    classDef external fill:#EC407A,stroke:#C2185B,color:#fff
+    classDef infra fill:#78909C,stroke:#546E7A,color:#fff
+    
+    class WebApp,MobileApp,API,MCP client
+    class CDN,WAF,LB edge
+    class UserSvc,PortfolioSvc,TradingSvc,RiskSvc,TaxSvc,NotificationSvc,MarketData,ExecutionEngine,Compliance,Settlement service
+    class UserDB,PortfolioDB,TimeSeriesDB,Cache,DataLake data
+    class MarketDataProvider,Broker,BankingPartner,KYCProvider external
+    class MessageQueue,EventStream,Monitoring,Logging,MLPlatform,Analytics,RiskModels infra

@@ -1,0 +1,81 @@
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#4A90E2', 'secondaryColor':'#7CB342', 'tertiaryColor':'#F57C00', 'errorBkgColor':'#E53935'}}}%%
+
+flowchart TD
+    %% Automated Portfolio Rebalancing Workflow
+    
+    Start([Daily Trigger<br/>9:00 AM EST]) --> A[Fetch All Portfolios]
+    
+    A --> B[Calculate Current Allocation]
+    B --> C[Fetch Target Allocation]
+    C --> D[Calculate Drift]
+    
+    D --> E{Drift > Threshold?}
+    E -->|No| F[Log Status]
+    F --> End1([No Action Needed])
+    
+    E -->|Yes| G[Generate Rebalancing Plan]
+    G --> H[Check Market Conditions]
+    
+    H --> I{Market Volatile?}
+    I -->|Yes| J[Apply Defensive Rules]
+    J --> K[Adjust Rebalancing Plan]
+    I -->|No| K
+    
+    K --> L[Tax Impact Analysis]
+    L --> M{Tax Efficient?}
+    M -->|No| N[Optimize for Tax]
+    N --> L
+    M -->|Yes| O[Risk Assessment]
+    
+    O --> P{Risk Within Limits?}
+    P -->|No| Q[Flag for Review]
+    Q --> R[Human Approval]
+    R --> S{Approved?}
+    S -->|No| End2([Rebalancing Cancelled])
+    S -->|Yes| T
+    P -->|Yes| T[Generate Trade Orders]
+    
+    T --> U[Order Validation]
+    U --> V{Orders Valid?}
+    V -->|No| W[Error Handling]
+    W --> X[Notify Operations]
+    X --> End3([Manual Intervention])
+    
+    V -->|Yes| Y[Execute Trades]
+    Y --> Z[Smart Order Routing]
+    Z --> AA[Best Execution]
+    AA --> AB[Trade Confirmation]
+    
+    AB --> AC[Update Portfolio]
+    AC --> AD[Update Accounting]
+    AD --> AE[Generate Reports]
+    AE --> AF[Send Notifications]
+    AF --> End4([Rebalancing Complete])
+    
+    %% Parallel Processes
+    Y -.-> AG[Monitor Execution]
+    AG -.-> AH{Execution Issues?}
+    AH -.->|Yes| AI[Rollback Trades]
+    AI -.-> W
+    
+    %% Styling
+    classDef trigger fill:#9C27B0,stroke:#6A1B9A,color:#fff
+    classDef process fill:#7CB342,stroke:#558B2F,color:#fff
+    classDef decision fill:#F57C00,stroke:#E65100,color:#fff
+    classDef risk fill:#E53935,stroke:#B71C1C,color:#fff
+    classDef endpoint fill:#546E7A,stroke:#37474F,color:#fff
+    classDef notification fill:#4A90E2,stroke:#2E7CD6,color:#fff
+    
+    class Start trigger
+    class A,B,C,D,G,H,K,L,N,O,T,U,Y,Z,AA,AB,AC,AD,AE process
+    class E,I,M,P,S,V,AH decision
+    class J,Q,R,W,X,AI risk
+    class F,AF notification
+    class End1,End2,End3,End4 endpoint
+    
+    %% Annotations
+    E -.->|Threshold typically<br/>5-10% drift| G
+    I -.->|VIX > 30 or<br/>Market down >3%| J
+    L -.->|Tax loss harvesting<br/>opportunities identified| N
+    Z -.->|Multiple venues<br/>Dark pools included| AA
+    AF -.->|Email + Push<br/>In-app notification| End4

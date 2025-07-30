@@ -1,0 +1,56 @@
+%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#4A90E2', 'primaryTextColor':'#fff', 'primaryBorderColor':'#2E7CD6', 'lineColor':'#5C6BC0', 'secondaryColor':'#7CB342', 'tertiaryColor':'#F57C00'}}}%%
+
+flowchart TD
+    %% User Onboarding Journey - From Landing to First Investment
+    
+    Start([User Lands on Homepage]) --> A{Convinced to Start?}
+    A -->|No| B[Read Educational Content]
+    B --> A
+    A -->|Yes| C[Click Get Started]
+    
+    C --> D[Create Account]
+    D --> E[Email/Phone Verification]
+    E --> F{Verification Success?}
+    F -->|No| E
+    F -->|Yes| G[Basic Profile Setup]
+    
+    G --> H[Risk Assessment Quiz]
+    H --> I[Financial Goals Setting]
+    I --> J[Investment Experience Survey]
+    
+    J --> K[AI Generates Portfolio]
+    K --> L{User Approves Portfolio?}
+    L -->|No| M[Customize Allocation]
+    M --> K
+    L -->|Yes| N[Account Funding Options]
+    
+    N --> O{Funding Method}
+    O -->|Bank Link| P[Plaid Connection]
+    O -->|Wire| Q[Wire Instructions]
+    O -->|Transfer| R[ACATS Transfer]
+    
+    P --> S[Micro-deposit Verification]
+    Q --> T[Wire Confirmation]
+    R --> U[Transfer Tracking]
+    
+    S & T & U --> V[Funds Received]
+    V --> W[First Investment Executed]
+    W --> X[Welcome Dashboard]
+    X --> End([Active Investor])
+    
+    %% Styling
+    classDef userAction fill:#4A90E2,stroke:#2E7CD6,color:#fff
+    classDef systemProcess fill:#7CB342,stroke:#558B2F,color:#fff
+    classDef decision fill:#F57C00,stroke:#E65100,color:#fff
+    classDef endpoint fill:#9C27B0,stroke:#6A1B9A,color:#fff
+    
+    class A,F,L,O decision
+    class C,D,G,H,I,M,P,Q,R userAction
+    class E,J,K,N,S,T,U,V,W,X systemProcess
+    class Start,End endpoint
+    
+    %% Annotations
+    B -.->|Education increases<br/>conversion 40%| A
+    H -.->|Determines<br/>asset allocation| K
+    P -.->|Most popular<br/>70% of users| S
+    W -.->|Average time:<br/>18 minutes| End
