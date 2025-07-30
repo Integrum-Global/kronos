@@ -1,7 +1,14 @@
 # Kronos - Automated Investment System PRD
 
+⚠️ **Critical Update**: This PRD has been revised with realistic assessments of the financial services industry. Building this platform requires $10M+ investment, 2-3 years to profitability, and extensive regulatory compliance. Proceed with caution.
+
 ## Overview
 This Product Requirements Document (PRD) outlines the design and requirements for Kronos, an automated financial investment system. The documentation follows a user-centric approach, starting from user personas and working backwards to technology requirements.
+
+### Document Status
+- **Version**: 2.0 (Realistic Assessment)
+- **Last Updated**: After comprehensive critique
+- **Key Changes**: Added regulatory requirements, realistic timelines, actual costs, error scenarios
 
 ## Documentation Structure
 
@@ -16,6 +23,10 @@ This Product Requirements Document (PRD) outlines the design and requirements fo
 ### 3. System Design
 - **[Consolidated Workflows](./05-consolidated-workflows.md)** - Generalized end-to-end workflows
 - **[System Architecture](./06-system-architecture.md)** - High-level technical design
+- **[Regulatory Compliance](./07-regulatory-compliance.md)** - ⚠️ Critical legal requirements
+- **[Business Model](./08-business-model.md)** - Monetization and unit economics
+- **[MVP Phasing Roadmap](./09-mvp-phasing-roadmap.md)** - Realistic implementation phases
+- **[Reality Check Summary](./10-reality-check-summary.md)** - 🚨 Brutal truths and recommendations
 
 ### 4. Visual Documentation
 - **[Diagrams](./diagrams/)** - Visual representations of flows and architecture
@@ -40,4 +51,13 @@ This Product Requirements Document (PRD) outlines the design and requirements fo
 5. **Scalability** - System should handle growth in users and transaction volume
 
 ## Getting Started
-Start with [User Personas](./01-user-personas.md) to understand our target users, then follow the documentation structure sequentially for a complete understanding of the system requirements.
+
+⚠️ **Start Here**: Read [Reality Check Summary](./10-reality-check-summary.md) first to understand the true complexity and costs.
+
+Then proceed with:
+1. [Regulatory Compliance](./07-regulatory-compliance.md) - Understand legal requirements
+2. [Business Model](./08-business-model.md) - Review unit economics
+3. [MVP Phasing](./09-mvp-phasing-roadmap.md) - See realistic timeline
+4. [User Personas](./01-user-personas.md) - Understand target users
+
+Only after understanding the above should you dive into technical implementation details.
